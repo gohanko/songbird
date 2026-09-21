@@ -1,4 +1,4 @@
-type TLabel = {
+type TLabelProps = {
     htmlFor: string;
     children: string;
 }
@@ -6,7 +6,7 @@ type TLabel = {
 export const Label = ({
     htmlFor,
     children,
-}: TLabel) => (
+}: TLabelProps) => (
     <label htmlFor={htmlFor}>
         {children}
     </label>

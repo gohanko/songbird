@@ -1,4 +1,4 @@
-type TInput = {
+type TInputProps = {
     id: string,
     type: 'text' | 'password'
     name: string,
@@ -8,7 +8,7 @@ export const Input = ({
     id,
     type,
     name,
-}: TInput) => (
+}: TInputProps) => (
     <input 
         id={id}
         type={type} 

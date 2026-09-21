@@ -1,4 +1,4 @@
-type TButton = {
+type TButtonProps = {
     type: "button" | "reset" | "submit";
     children: string;
 }
@@ -6,7 +6,7 @@ type TButton = {
 export const Button = ({
     type,
     children,
-}: TButton) => (
+}: TButtonProps) => (
     <button type={type}>
         { children }
     </button>

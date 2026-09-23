@@ -1,86 +1,53 @@
-# AGENTS.md
-To understand the project's purpose, please read `README.md` file in the root folder.
+# Agent instructions
 
-# Agent instructions for Songbird
+This directory contains generic instructions, reusable agent roles, repository knowledge, and workflow rules. It is designed to be copied into a software repository and customized only where explicitly required.
 
-## Project overview
+## How to use this directory
 
-Songbird is a Next.js application using the App Router, React, TypeScript, and Tailwind CSS. The repository is currently a small frontend application and does not yet have automated unit, component, or end-to-end test tooling.
+Read the relevant files in [`knowledge/`](./knowledge/) and [`rules/`](./rules/) before making non-trivial changes:
 
-Read the relevant files in [`references/`](./references/) before making non-trivial changes:
+- [`atomic-design.md`](./knowledge/atomic-design.md) describes an optional shared UI hierarchy.
+- [`folder-structure.md`](./knowledge/folder-structure.md) explains how to document a repository's structure.
 
-- [`repository-map.md`](./references/repository-map.md) explains where code belongs.
-- [`commands.md`](./references/commands.md) lists the supported development and verification commands.
-- [`testing-strategy.md`](./references/testing-strategy.md) describes the current testing gap and intended direction.
-- [`environment-and-secrets.md`](./references/environment-and-secrets.md) defines environment-variable handling.
-- [`architecture-docs.md`](./references/architecture-docs.md) defines where architecture and decision records belong.
-- [`specification-workflow.md`](./references/specification-workflow.md) defines how feature specifications are written.
-- [`task-planning.md`](./references/task-planning.md) defines how specifications become implementation tasks.
+Knowledge describes **what** exists. Rules describe **how** work should be performed:
+
+- [`code-convention.md`](./rules/code-convention.md) defines general coding conventions.
+- [`commands.md`](./rules/commands.md) defines how to discover and run project commands.
+- [`environment.md`](./rules/environment.md) defines environment configuration practices.
+- [`secrets.md`](./rules/secrets.md) defines secret-handling requirements.
+- [`testing.md`](./rules/testing.md) defines testing expectations.
 
 ## Agent routing
 
-- Use `general-coding` for general TypeScript, configuration, and repository work.
-- Use `nextjs` for App Router, page, layout, route, server/client boundary, or React UI work.
+- Use `coding` for general implementation, configuration, and repository work.
+- Use `frontend` for UI, component, accessibility, and browser-facing work.
 - Use `testing` when adding tests, selecting test tooling, or diagnosing test failures.
 - Use `code-review` before merging or when reviewing a non-trivial change.
 - Use `security` for authentication, authorization, input handling, environment variables, external integrations, or unsafe rendering.
 
-Agent definitions are stored in [`agents/`](./agents/):
+Agent definitions are stored in [`agents/`](./agents/) in lexicographic order:
 
-- [`general-coding.agent.md`](./agents/general-coding.agent.md)
-- [`nextjs.agent.md`](./agents/nextjs.agent.md)
-- [`react.agent.md`](./agents/react.agent.md)
-- [`testing.agent.md`](./agents/testing.agent.md)
 - [`code-review.agent.md`](./agents/code-review.agent.md)
+- [`coding.agent.md`](./agents/coding.agent.md)
+- [`frontend.agent.md`](./agents/frontend.agent.md)
 - [`security.agent.md`](./agents/security.agent.md)
+- [`testing.agent.md`](./agents/testing.agent.md)
 
-## Engineering conventions
+## Operating principles
 
-- Use TypeScript with strict type checking. Do not weaken `tsconfig.json` or add type-suppression comments to bypass errors.
-- Use the `@/*` path alias for repository-root imports when it improves clarity.
-- Follow the existing four-space indentation configured in ESLint.
-- Prefer small, focused components and functions with explicit types.
-- Place reusable primitive UI in `components/atoms/` and composed UI in `components/molecules/`.
-- Keep route-specific code close to its route under `app/`; do not move code into a generic shared directory without a reuse case.
-- Preserve existing styling and component patterns. Do not introduce a state-management or UI library without an explicit requirement.
-- Prefer accessible semantic HTML, keyboard support, visible focus states, and labels for controls.
-- Do not add comments that merely restate code. Document non-obvious decisions and constraints.
-
-## Next.js rules
-
-- Prefer Server Components. Add `"use client"` only when a component requires browser APIs, event handlers, or client-side state.
-- Keep server-only values and operations out of Client Components.
-- Use Next.js primitives and conventions where applicable, including `next/image`, `next/font`, metadata, route-level loading states, and error boundaries.
-- Avoid unnecessary client-side fetching and duplicated data fetching.
-- Do not assume that a generic React or Vite pattern applies to the App Router.
-
-## Environment and security
-
-- Follow [`environment-and-secrets.md`](./references/environment-and-secrets.md).
-- Never commit secrets, print secret values, or expose server-only environment variables to the browser.
-- Treat all external and user-provided data as untrusted input.
-- Do not add authentication, persistence, or external services without documenting the boundary and validating configuration.
+- Inspect the repository before editing.
+- State assumptions when requirements are ambiguous.
+- Make precise changes within the requested scope.
+- Preserve existing patterns unless there is a clear reason to change them.
+- Surface errors explicitly; never hide failures with broad catches, silent fallbacks, or disabled checks.
+- Do not commit secrets or generated output.
+- Update durable documentation when architecture, public behavior, commands, or conventions change.
 
 ## Definition of done
 
-- The requested behavior is implemented completely and follows existing repository patterns.
-- No unrelated files or behavior are changed.
-- No secrets or generated build output are committed.
-- `npm run lint` passes.
-- `npm run build` passes for TypeScript, routing, and configuration changes.
-- Tests are added when test infrastructure exists; otherwise, report that automated tests are not configured and describe the manual verification performed.
-- UI changes are checked in a browser when practical, including responsive and keyboard behavior.
-- Accessibility basics are verified for interactive UI.
-- Related documentation is updated when commands, architecture, public behavior, or agent guidance changes.
-
-## Required validation
-
-Use the smallest applicable command set documented in [`commands.md`](./references/commands.md). At minimum, run `npm run lint` for code changes. Run `npm run build` for changes affecting TypeScript, routes, configuration, dependencies, or production behavior.
-
-## Scope discipline
-
-- Inspect the existing implementation before editing.
-- Make precise, surgical changes.
-- Do not add speculative dependencies, abstractions, or features.
-- Do not silently choose between materially different behavioral options; ask for clarification.
-- Surface failures explicitly instead of hiding them with broad catches, silent fallbacks, or disabled checks.
+- The requested behavior is implemented completely.
+- Existing behavior is preserved unless a change is intentional and documented.
+- Relevant tests, linting, type checks, builds, and runtime checks pass.
+- No secrets or generated output are committed.
+- UI changes are checked for accessibility and responsive behavior when applicable.
+- Verification results and any unavailable checks are reported clearly.

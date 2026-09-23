@@ -13,6 +13,9 @@ Read the relevant files in [`references/`](./references/) before making non-triv
 - [`commands.md`](./references/commands.md) lists the supported development and verification commands.
 - [`testing-strategy.md`](./references/testing-strategy.md) describes the current testing gap and intended direction.
 - [`environment-and-secrets.md`](./references/environment-and-secrets.md) defines environment-variable handling.
+- [`architecture-docs.md`](./references/architecture-docs.md) defines where architecture and decision records belong.
+- [`specification-workflow.md`](./references/specification-workflow.md) defines how feature specifications are written.
+- [`task-planning.md`](./references/task-planning.md) defines how specifications become implementation tasks.
 
 ## Agent routing
 
